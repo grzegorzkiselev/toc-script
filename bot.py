@@ -22,19 +22,6 @@ class TableOfContents():
         # List of messages, that stores links, will be called "sections" in the other comments
         # Id is the last part of url
         self.tags = {
-            # "#содержание": 56,
-            # "#файлы": 57,
-            # "#текст": 58,
-            # "#взаимодействие": 59,
-            # "#оптимизация": 60,
-            # "#скрипты": 61,
-            # "#автоматизация": 62,
-            # "#хихоз": 63,
-            # "#macos": 64,
-            # "#android": 65,
-            # "#desktop": 66,
-            # "#mobile": 67,
-            # "#эстетика": 68,
             "#содержание": 1916,
             "#файлы": 1917,
             "#текст": 1919,
