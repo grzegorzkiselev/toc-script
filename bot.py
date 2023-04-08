@@ -194,20 +194,20 @@ class TableOfContents():
         self.observable_ids[event_message.id] = set(target_sections)
 
     # Append the link to cache
-    def append_new_link(self, table_id, event_message):
+    def append_new_link(self, section_id, event_message):
         # If the section has no links
-        if len(self.cached_sections[table_id].links) == 0:
+        if len(self.cached_sections[section_id].links) == 0:
             # Init the links list
-            self.cached_sections[table_id].links = [event_message.link]
+            self.cached_sections[section_id].links = [event_message.link]
         else:
             # Append the new link to the links list
-            self.cached_sections[table_id].links.append(event_message.link)
+            self.cached_sections[section_id].links.append(event_message.link)
 
     # Depreciated
-    # def get_cached_tables(self, referenced_tablesIds):
+    # def get_cached_tables(self, target_sectionsIds):
         # Init new dict
         # intersected_cached_tables = {}
-        # for id in referenced_tablesIds:
+        # for id in target_sectionsIds:
             # Append id of cached table to dict
             # intersected_cached_tables[id] = self.cached_sections[id]
 #
@@ -260,17 +260,17 @@ class EventMessage():
         self.lines = self.raw_text.split("\n")
         self.title = self.lines[0].replace(f"{toc.marker} ", "")
         self.tags = self.lines[1].rstrip().split(" ")
-        self.target_tables = []
+        self.target_sections = []
         self.link = {
             "text": self.title,
             "url": self.url,
         }
 
-    def get_target_tablesIds(self):
+    def get_target_sections_ids(self):
         for tag in self.tags:
-            self.target_tables.append(toc.tags[tag])
+            self.target_sections.append(toc.tags[tag])
         # Add #содержание to the tag list
-        self.target_tables.append(1916)
+        self.target_sections.append(1916)
 
 
 toc = TableOfContents()
@@ -289,9 +289,9 @@ async def handler(event):
 async def handler(event):
     message = EventMessage(event.message)
     print(f"message {message.id} recieved")
-    message.get_referenced_tablesIds()
-    await toc.prepare_message_body(message.referenced_tables, message)
-    await toc.apply_message_body(message.referenced_tables)
+    message.get_target_sections_ids()
+    await toc.prepare_message_body(message.target_sections, message)
+    await toc.apply_message_body(message.target_sections)
     print("listening...")
 
 
@@ -299,9 +299,9 @@ async def handler(event):
 async def handler(event):
     message = EventMessage(event.message)
     print(f"message {message.id} edited")
-    message.get_referenced_tablesIds()
-    await toc.prepare_message_body(message.referenced_tables, message)
-    await toc.apply_message_body(message.referenced_tables)
+    message.get_target_sections_ids()
+    await toc.prepare_message_body(message.target_sections, message)
+    await toc.apply_message_body(message.target_sections)
     print("listening...")
 
 client.run_until_disconnected()
