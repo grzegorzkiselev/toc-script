@@ -32,8 +32,8 @@ class TableOfContents():
             "#хихоз": 1924,
             "#macos": 1925,
             "#android": 1926,
-            "#desktop": 1927,
-            "#mobile": 1952,
+            "#windows": 1927,
+            "#ios": 1952,
             "#эстетика": 1964
         }
         # This object stores the cached versions of the sections
