@@ -9,11 +9,10 @@ config.read("./conf.ini")
 # Put your api_id, api_hash and channel url into "conf.ini" file it the same folder
 API_ID = config['Telegram']['API_ID']
 API_HASH = config['Telegram']['API_HASH']
+BOT_TOKEN = config['Telegram']['BOT_TOKEN']
 CHANNEL = config['Telegram']['CHANNEL']
 
-client = TelegramClient('session_name', API_ID, API_HASH)
-client.start()
-
+client = TelegramClient('bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
 class TableOfContents():
     def __init__(self):
