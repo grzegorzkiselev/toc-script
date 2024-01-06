@@ -33,9 +33,10 @@ class TableOfContents():
             "#android": 1926,
             "#windows": 1927,
             "#ios": 1952,
-            "#эстетика": 1964,
-            "#безопасность": 1965,
-            "#моё": 1966,
+            "#web": 1964,
+            "#эстетика": 1965,
+            "#безопасность": 1966,
+            "#моё": 1967,
         }
         # This object stores the cached versions of the sections
         # Sections states in Telegram will be replaced with data stored in this object
