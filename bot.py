@@ -9,10 +9,11 @@ config.read("./conf.ini")
 # Put your api_id, api_hash and channel url into "conf.ini" file it the same folder
 API_ID = config['Telegram']['API_ID']
 API_HASH = config['Telegram']['API_HASH']
-BOT_TOKEN = config['Telegram']['BOT_TOKEN']
+# BOT_TOKEN = config['Telegram']['BOT_TOKEN']
 CHANNEL = config['Telegram']['CHANNEL']
 
-client = TelegramClient('bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN)
+# bot_token=BOT_TOKEN
+client = TelegramClient('bot', API_ID, API_HASH).start()
 
 class TableOfContents():
     def __init__(self):
@@ -29,13 +30,13 @@ class TableOfContents():
             "#скрипты": 1922,
             "#автоматизация": 1923,
             "#хихоз": 1924,
-            "#macos": 1925,
-            "#android": 1926,
-            "#windows": 1927,
-            "#ios": 1952,
-            "#web": 1964,
-            "#эстетика": 1965,
-            "#безопасность": 1966,
+            "#эстетика": 1925,
+            "#безопасность": 1926,
+            "#macos": 1927,
+            "#windows": 1952,
+            "#android": 1964,
+            "#ios": 1965,
+            "#web": 1966,
             "#моё": 1967,
         }
         # This object stores the cached versions of the sections
@@ -296,9 +297,13 @@ async def handler(event):
     await toc.apply_message_body(message.target_sections)
     print("listening...")
 
+@ client.on(events.NewMessage(chats=(CHANNEL), pattern=toc.marker))
+async def handler(event):
+    print("recieved")
 
 @ client.on(events.MessageEdited(chats=(CHANNEL), pattern=toc.marker))
 async def handler(event):
+    print("detected")
     message = EventMessage(event.message)
     print(f"message {message.id} edited")
     message.get_target_sections_ids()
